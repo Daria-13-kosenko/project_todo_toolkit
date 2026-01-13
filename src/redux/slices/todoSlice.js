@@ -11,8 +11,17 @@ const todoSlice = createSlice({
       state.data.push({ id: Math.random(), ...action.payload })
       state.count++
     },
+    toggleTodo(state, action) {
+      const todo = state.find((todo) => todo.id === action.payload)
+      if (todo) {
+        todo.completed = !todo.completed
+      }
+    },
+    deleteTodo(state, action) {
+      return state.filter((todo) => todo.id !== action.payload)
+    },
   },
 })
 
-export const { addTodo } = todoSlice.actions
+export const { addTodo, toggleTodo, deleteTodo } = todoSlice.actions
 export default todoSlice.reducer
